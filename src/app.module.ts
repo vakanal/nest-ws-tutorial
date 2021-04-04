@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { AppGateway } from './app.gateway';
+import { AlertController } from './alert/alert.controller';
+import { AlertGateway } from './alert/alert.gateway';
+import { ChatGateway } from './chat/chat.gateway';
 import { join } from 'path';
 
 @Module({
@@ -13,10 +15,10 @@ import { join } from 'path';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
-      exclude: ['/api*'],
+      // exclude: ['/api*'],
     }),
   ],
-  controllers: [],
-  providers: [AppGateway],
+  controllers: [AlertController],
+  providers: [AlertGateway, ChatGateway],
 })
 export class AppModule {}
