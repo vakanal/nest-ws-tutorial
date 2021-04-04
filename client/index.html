@@ -21,8 +21,37 @@
           <input v-model="text" type="text" />
           <button type="submit" @click.prevent="sendChatMessage()">Send</button>
         </form>
+        <div class="tab-row">
+          <button
+            class="tab-btn"
+            :class="{ active: activeRoom == 'general' }"
+            @click="activeRoom = 'general'"
+          >
+            General
+          </button>
+          <button
+            class="tab-btn"
+            :class="{ active: activeRoom == 'typescript' }"
+            @click="activeRoom = 'typescript'"
+          >
+            Typescript
+          </button>
+          <button
+            class="tab-btn"
+            :class="{ active: activeRoom == 'nestjs' }"
+            @click="activeRoom = 'nestjs'"
+          >
+            Nestjs
+          </button>
+        </div>
+        <div class="tab-row">
+          Status: {{ isMemberOfActiveRoom ? 'Joined' : 'NOT Joined' }}
+          <button @click="toggleRoomMembership()">
+            {{ isMemberOfActiveRoom ? 'Leave' : 'Join' }}
+          </button>
+        </div>
         <ul>
-          <li v-for="msg of messages">
+          <li v-for="msg of messages[activeRoom]">
             <strong>{{ msg.sender }}</strong> {{ msg.message }}
           </li>
         </ul>
